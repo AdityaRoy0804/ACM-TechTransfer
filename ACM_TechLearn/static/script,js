@@ -1,0 +1,30 @@
+async function searchTopic() {
+    
+    // Get topic from input box
+    let topic = document.getElementById("topic").value;
+
+    // Send request to Flask backend
+    let response = await fetch(`/search?topic=${encodeURIComponent(topic)}`);
+
+    // Convert response to JSON
+    let data = await response.json();
+
+    // Display result in chatbot area
+    document.getElementById("result").innerHTML = `
+        <b>${topic}</b><br><br>
+
+        ${data.description}
+
+        <br><br>
+
+        <a href="${data.article}" target="_blank">
+            Read More
+        </a>
+
+        <br>
+
+        <a href="${data.video}" target="_blank">
+            Watch Video
+        </a>
+    `;
+}
